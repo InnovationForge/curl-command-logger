@@ -32,6 +32,9 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+        if(todo.getTitle() == null || todo.getDescription() == null){
+            return ResponseEntity.badRequest().build();
+        }
         Todo createdTodo = todoService.createTodo(todo);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTodo);
     }
